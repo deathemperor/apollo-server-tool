@@ -1,0 +1,40 @@
+image: node:12
+
+stages:
+  - deploy
+
+deploy-uat:
+  stage: deploy
+  before_script:
+    - npm config set prefix /usr/local
+  script:
+    - npm i
+    - echo "$DOTENV" > "$(pwd)/.env.uat"
+    - NODE_ENV=uat node ./node_modules/serverless/bin/serverless.js deploy --stage uat --verbose
+  environment: uat
+  only:
+    - develop
+
+deploy-dev-loc:
+  stage: deploy
+  before_script:
+    - npm config set prefix /usr/local
+  script:
+    - npm i
+    - echo "$DOTENV" > "$(pwd)/.env.dev-loc"
+    - NODE_ENV=dev-loc node ./node_modules/serverless/bin/serverless.js deploy --stage dev-loc --verbose
+  environment: dev-loc
+  only:
+    - dev-loc
+
+deploy-prod:
+  stage: deploy
+  before_script:
+    - npm config set prefix /usr/local
+  script:
+    - npm i
+    - echo "$DOTENV" > "$(pwd)/.env.prod"
+    - NODE_ENV=prod node ./node_modules/serverless/bin/serverless.js deploy --stage prod --verbose
+  environment: prod
+  only:
+    - master

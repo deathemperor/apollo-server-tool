@@ -1,0 +1,13 @@
+graphql:
+  handler: ./functions/graphql/handler.graphql
+  timeout: 30
+  memorySize: 1024
+  events:
+    - http:
+        path: graphql
+        method: post
+        cors: true
+    - http:
+        path: graphql
+        method: get
+        cors: true

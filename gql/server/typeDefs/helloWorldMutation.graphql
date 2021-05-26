@@ -1,0 +1,8 @@
+type helloWorldMutationOutput {
+  success: Boolean!
+  message: String
+}
+
+type Mutation {
+  helloWorldMutation(message: String!): helloWorldMutationOutput
+}

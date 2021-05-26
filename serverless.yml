@@ -1,0 +1,38 @@
+service: papaya-berry-change-me
+# app and org for use with dashboard.serverless.com
+app: papaya
+org: papaya
+
+provider:
+  name: aws
+  profile: papaya
+  runtime: nodejs14.x
+  stage: ${opt:stage, 'dev'} # Set the default stage used. Default is dev
+  region: "ap-southeast-1" # Overwrite the default region used. Default is ap-southeast-1
+  environment:
+    AWS_PROFILE: papaya
+    SERVICE: ${self:service.name}
+    REGION: ${self:provider.region}
+    STAGE: ${self:provider.stage}
+
+package:
+  individually: true
+  excludeDevDependencies: true
+
+plugins:
+  - serverless-webpack
+  - serverless-offline
+
+custom:
+  webpack:
+    includeModules: true
+  serverless-offline:
+    useChildProcesses: true
+    httpPort: 9998
+    printOutput: true
+  lambda:
+    host: 0.0.0.0
+    port: 9998
+
+functions:
+  - ${file(./functions/graphql/config.yml)}

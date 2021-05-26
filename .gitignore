@@ -1,0 +1,8 @@
+node_modules
+.serverless
+.webpack
+.env
+.DS_Store
+.vscode
+jest.config.js
+!.gitignore

@@ -1,0 +1,8 @@
+type Query {
+  _empty_id: String
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}

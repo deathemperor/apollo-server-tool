@@ -1,0 +1,8 @@
+type HelloWorldOutput {
+  success: Boolean!
+  message: String
+}
+
+type Query {
+  helloWorld(message: String!): HelloWorldOutput
+}
